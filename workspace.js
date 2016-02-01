@@ -72,7 +72,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             // Add our billboard to the menu (has name, url, picture of workspace)
             this.addBillboardToWorkspaceMenu();
             
-            this.loadtouchplate();
+            this.loadTouchPlateWidget();
             
             // Setup an event to react to window resize. This helps since
             // some of our widgets have a manual resize to cleanly fill
@@ -115,10 +115,11 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
         onResize: function() {
             if (this.widgetConsole) this.widgetConsole.resize();
         },
+        
         /**
          * Load the Touch Plate widget via chilipeppr.load()
          */
-        loadtouchplate: function() {
+        loadTouchPlateWidget: function() {
             chilipeppr.load(
                 "#com-chilipeppr-widget-touchplate-instance",
                 "http://raw.githubusercontent.com/masterlefty/widget-touchplate/master/auto-generated-widget.html",

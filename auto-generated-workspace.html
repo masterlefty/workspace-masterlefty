@@ -164,7 +164,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             // Add our billboard to the menu (has name, url, picture of workspace)
             this.addBillboardToWorkspaceMenu();
             
-            this.loadtouchplate();
+            this.loadTouchPlateWidget();
             
             // Setup an event to react to window resize. This helps since
             // some of our widgets have a manual resize to cleanly fill
@@ -207,10 +207,11 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
         onResize: function() {
             if (this.widgetConsole) this.widgetConsole.resize();
         },
+        
         /**
          * Load the Touch Plate widget via chilipeppr.load()
          */
-        loadtouchplate: function() {
+        loadTouchPlateWidget: function() {
             chilipeppr.load(
                 "#com-chilipeppr-widget-touchplate-instance",
                 "http://raw.githubusercontent.com/masterlefty/widget-touchplate/master/auto-generated-widget.html",
@@ -329,7 +330,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
 <body>
 
     <div id="com-chilipeppr-widget-flash-instance"></div>
-
+    
     <div id="com-chilipeppr-workspace-masterlefty" class="xhidden">
 
         <div class="container-fluid">
@@ -364,10 +365,14 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
 
                     </div>
 
+                    <div id="com-chilipeppr-widget-touchplate-instance">
+                        <p class="sample">The Touchplate widget goes here</p>
+                    </div>
+                    
                     <div id="mywidget1-instance">
                         <p class="sample">Widget 1 goes here</p>
                     </div>
-
+  
                     <div id="com-chilipeppr-widget-spconsole-instance">
                         Serial Port Console goes here.
                     </div>
