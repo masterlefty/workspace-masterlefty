@@ -205,6 +205,29 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             if (this.widgetConsole) this.widgetConsole.resize();
         },
         /**
+         * Load the Touch Plate widget via chilipeppr.load()
+         */
+        loadtouchplate: function() {
+            chilipeppr.load(
+                "#com-chilipeppr-widget-serialport-instance",
+                "http://raw.githubusercontent.com/masterlefty/widget-touchplate/master/auto-generated-widget.html",
+                function() {
+                    // Callback after widget loaded into #myDivWidgetTouchplate
+                    // Now use require.js to get reference to instantiated widget
+                    cprequire(
+                        ["inline:com-chilipeppr-widget-touchplate"], // the id you gave your widget
+                        function(myObjWidgetTouchplate) {
+                            // Callback that is passed reference to the newly loaded widget
+                            console.log("Widget / touchplate just got loaded.", myObjWidgetTouchplate);
+                            myObjWidgetTouchplate.init();
+                        }
+                    );
+                }
+            );
+        },
+        
+        
+        /**
          * Load the Serial Port JSON Server widget via chilipeppr.load()
          */
         loadSpjsWidget: function(callback) {
