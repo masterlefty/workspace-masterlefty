@@ -72,6 +72,8 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             // Add our billboard to the menu (has name, url, picture of workspace)
             this.addBillboardToWorkspaceMenu();
             
+            this.loadtouchplate();
+            
             // Setup an event to react to window resize. This helps since
             // some of our widgets have a manual resize to cleanly fill
             // the height of the browser window. You could turn this off and
@@ -79,7 +81,6 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             this.setupResize();
             setTimeout(function() { $(window).trigger('resize'); }, 100);
             
-            this.loadtouchplate();
 
         },
         /**
@@ -119,7 +120,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
          */
         loadtouchplate: function() {
             chilipeppr.load(
-                "#com-chilipeppr-widget-serialport-instance",
+                "#com-chilipeppr-widget-touchplate-instance",
                 "http://raw.githubusercontent.com/masterlefty/widget-touchplate/master/auto-generated-widget.html",
                 function() {
                     // Callback after widget loaded into #myDivWidgetTouchplate
