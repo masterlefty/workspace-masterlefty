@@ -214,15 +214,16 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
         loadTouchPlateWidget: function() {
             chilipeppr.load(
                 "#com-chilipeppr-widget-touchplate-instance",
-                "http://raw.githubusercontent.com/masterlefty/widget-playground/master/auto-generated-widget.html",
+                "http://raw.githubusercontent.com/masterlefty/current-widget-template/master/auto-generated-widget.html",
                 function() {
-                    // Callback after widget loaded into #myDivWidgetInsertedInto
+                    // Callback after widget loaded into #myDivDlvpWidgetTouchplate
+                    // Now use require.js to get reference to instantiated widget
                     cprequire(
-                        ["inline:com-chilipeppr-widget-playground"], // the id you gave your widget
-                        function(mywidget) {
-                            // Callback that is passed reference to your newly loaded widget
-                            console.log("My widget just got loaded.", mywidget);
-                            mywidget.init();
+                        ["inline:com-chilipeppr-dlvp-widget-touchplate"], // the id you gave your widget
+                        function(myObjDlvpWidgetTouchplate) {
+                            // Callback that is passed reference to the newly loaded widget
+                            console.log("Dlvp Widget / Touchplate just got loaded.", myObjDlvpWidgetTouchplate);
+                            myObjDlvpWidgetTouchplate.init();
                         }
                     );
                 }
