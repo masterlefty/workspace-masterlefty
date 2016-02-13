@@ -86,12 +86,6 @@
     padding: 4px 10px 10px 10px;
     background-color: rgba(255, 255, 255, 0.5);
 }
-#com-chilipeppr-widget-3dviewer .panel-heading, #com-chilipeppr-3dviewer-controlpanel .panel-heading {
-    background:none;
-    /* border:none; */
-    padding:10px 15px;
-    margin-bottom:0;
-}
 
     </style>
 
@@ -166,6 +160,9 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             this.loadConsoleWidget(function() {
                 setTimeout(function() { $(window).trigger('resize'); }, 100);
             });
+            
+            // Add the 3D Viewer
+            this.load3dviewer();
             
             this.loadTemplateWidget();
             
@@ -326,6 +323,29 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                 }
             );
         },
+        
+        //load 3D viewer
+        /**
+         * Load the 3D Viewer widget via chilipeppr.load()
+         */
+        load3dviewer: function(callback) {
+            var that = this;
+            chilipeppr.load(
+                "#com-chilipeppr-widget-3dviewer-instance",
+                "http://raw.githubusercontent.com/chilipeppr/widget-3dviewer/master/auto-generated-widget.html",
+                function() {
+                    // Callback after widget loaded into #myDivWidgetInsertedInto
+                    cprequire(
+                        ["inline:com-chilipeppr-widget-3dviewer"], // the id you gave your widget
+                        function(mywidget) {
+                            // Callback that is passed reference to your newly loaded widget
+                            console.log("My widget just got loaded.", mywidget);
+                            mywidget.init();
+                        }
+                    );
+                }
+            );
+        }, //end 3D Viewer
     };
 });
 
@@ -347,10 +367,12 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                 <!-- Change the width by adjusting col-md-4 to be col-md-3 for skinnier, or col-md-5 for wider -->
                 <!-- You must have all columns add up to 12 since we use bootstrap's col-md technique, i.e. col-md-2, col-md-7, col-md-3 adds to 12 -->
                 <div class="col-md-4 col-pad10">
+                    
+                    <!-- 3D Viewer. Must be loaded at top to get z-orders correct -->
+                    <div id="com-chilipeppr-3dviewer-instance">Load 3D Viewport Here</div>
 
-                    <div class="com-chilipeppr-ws-hdr well">
-                        
-                        Workspace - Sample
+                    <!-- Workspace Hdr -->
+                    <div class="com-chilipeppr-ws-hdr well">Workspace - Masterlefty
 
                         <div class="com-chilipeppr-ws-menu pull-right">
                             <div class="btn-group">
@@ -363,8 +385,6 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                                             </div>
                                             <!-- End Billboard -->
                                         </li>
-
-
                                     </ul>
                                 </div>
                             </div>

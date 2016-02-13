@@ -46,10 +46,12 @@
                 <!-- Change the width by adjusting col-md-4 to be col-md-3 for skinnier, or col-md-5 for wider -->
                 <!-- You must have all columns add up to 12 since we use bootstrap's col-md technique, i.e. col-md-2, col-md-7, col-md-3 adds to 12 -->
                 <div class="col-md-4 col-pad10">
+                    
+                    <!-- 3D Viewer. Must be loaded at top to get z-orders correct -->
+                    <div id="com-chilipeppr-3dviewer-instance">Load 3D Viewport Here</div>
 
-                    <div class="com-chilipeppr-ws-hdr well">
-                        
-                        Workspace - Sample
+                    <!-- Workspace Hdr -->
+                    <div class="com-chilipeppr-ws-hdr well">Workspace - Masterlefty
 
                         <div class="com-chilipeppr-ws-menu pull-right">
                             <div class="btn-group">
@@ -62,8 +64,6 @@
                                             </div>
                                             <!-- End Billboard -->
                                         </li>
-
-
                                     </ul>
                                 </div>
                             </div>
