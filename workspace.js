@@ -68,9 +68,6 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                 setTimeout(function() { $(window).trigger('resize'); }, 100);
             });
             
-            // Add the 3D Viewer
-            this.load3dviewer();
-            
             this.loadTemplateWidget();
             
             // Create our workspace upper right corner triangle menu
@@ -231,27 +228,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             );
         },
         
-        //load 3D viewer
-        /**
-         * Load the 3D Viewer widget via chilipeppr.load()
-         */
-        load3dviewer: function(callback) {
-            var that = this;
-            chilipeppr.load(
-                "#com-chilipeppr-3dviewer-instance",
-                "http://raw.githubusercontent.com/chilipeppr/widget-3dviewer/master/auto-generated-widget.html",
-                function() {
-                    // Callback after widget loaded into #myDivWidgetInsertedInto
-                    cprequire(
-                        ["inline:com-chilipeppr-widget-3dviewer"], // the id you gave your widget
-                        function(mywidget) {
-                            // Callback that is passed reference to your newly loaded widget
-                            console.log("My widget just got loaded.", mywidget);
-                            mywidget.init();
-                        }
-                    );
-                }
-            );
-        }, //end 3D Viewer
+        // insert callbacks here
+        
     };
 });
