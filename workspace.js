@@ -81,6 +81,9 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             // just set widget min-height in CSS instead
             this.setupResize();
             setTimeout(function() { $(window).trigger('resize'); }, 100);
+            
+            // Load the 3D Viewer
+            this.load3dviewer();
 
         },
         /**
