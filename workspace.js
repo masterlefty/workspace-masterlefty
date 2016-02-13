@@ -238,7 +238,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
         load3dviewer: function(callback) {
             var that = this;
             chilipeppr.load(
-                "#com-chilipeppr-3dviewer",
+                "#com-chilipeppr-3dviewer-instance",
                 "http://raw.githubusercontent.com/chilipeppr/widget-3dviewer/master/auto-generated-widget.html",
                 function() {
                     // Callback after widget loaded into #myDivWidgetInsertedInto
