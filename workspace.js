@@ -307,7 +307,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             // XYZ
             // http://jsfiddle.net/chilipeppr/gh45j/
             chilipeppr.load(
-                "com-chilipeppr-xyz",
+                "com-chilipeppr-xyz-instance",
                 // Lauer's new widget 8/16/15
                 "http://raw.githubusercontent.com/chilipeppr/widget-axes/master/auto-generated-widget.html",
                 // Temporary widget from Danal
