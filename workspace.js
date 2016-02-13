@@ -61,6 +61,9 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
          */
         init: function() {
 
+            // Load the 3D Viewer
+            this.load3dviewer();
+            
             // Most workspaces will instantiate the Serial Port JSON Server widget
             this.loadSpjsWidget();
             // Most workspaces will instantiate the Serial Port Console widget
@@ -82,8 +85,6 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             this.setupResize();
             setTimeout(function() { $(window).trigger('resize'); }, 100);
             
-            // Load the 3D Viewer
-            this.load3dviewer();
 
         },
         /**
