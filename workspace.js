@@ -61,9 +61,6 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
          */
         init: function() {
 
-            // Load the 3D Viewer
-            this.load3dviewer();
-            
             // Most workspaces will instantiate the Serial Port JSON Server widget
             this.loadSpjsWidget();
             // Most workspaces will instantiate the Serial Port Console widget
@@ -85,7 +82,9 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             this.setupResize();
             setTimeout(function() { $(window).trigger('resize'); }, 100);
             
-
+            // Load the 3D Viewer
+            this.load3dviewer();
+            
         },
         /**
          * Returns the billboard HTML, CSS, and Javascript for this Workspace. The billboard
@@ -119,6 +118,8 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
         onResize: function() {
             if (this.widgetConsole) this.widgetConsole.resize();
         },
+        
+        
         /**
          * Load the Template widget via chilipeppr.load() so folks have a sample
          * widget they can fork as a starting point for their own.
@@ -232,24 +233,53 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             );
         },
         
+        //load here
         // insert callbacks here
         load3dviewer: function(callback) {
             chilipeppr.load(
                 "#com-chilipeppr-3dviewer",
+                //"http://fiddle.jshell.net/chilipeppr/y3HRF/show/light/",
                 "http://raw.githubusercontent.com/chilipeppr/widget-3dviewer/master/auto-generated-widget.html",
+        
                 function() {
-                    // Callback after widget loaded into #myDivWidgetInsertedInto
+                    console.log("got callback done loading 3d");
+        
                     cprequire(
-                        ["inline:com-chilipeppr-widget-3dviewer"], // the id you gave your widget
-                        function(mywidget) {
-                            // Callback that is passed reference to your newly loaded widget
-                            console.log("My widget just got loaded.", mywidget);
-                            mywidget.init();
-                        }
-                    );
-                }
-            );
+                        ['inline:com-chilipeppr-widget-3dviewer'],
+        
+                        function(threed) {
+                            console.log("Running 3dviewer");
+                            threed.init();
+                            console.log("3d viewer initted");
+        
+                            // Ok, do someting whacky. Try to move the 3D Viewer 
+                            // Control Panel to the center column
+                            setTimeout(function() {
+                                var element = $('#com-chilipeppr-3dviewer .panel-heading').detach();
+                                $('#com-chilipeppr-3dviewer').addClass("noheight");
+                                $('#com-chilipeppr-widget-3dviewer').addClass("nomargin");
+                                $('#com-chilipeppr-3dviewer-controlpanel').append(element);
+                            }, 10);
+        
+                            // listen to resize events so we can resize our 3d viewer
+                            // this was done to solve the scrollbar residue we were seeing
+                            // resize this console on a browser resize
+                            var mytimeout = null;
+                            $(window).on('resize', function(evt) {
+                                //console.log("3d view force resize");
+                                if (mytimeout !== undefined && mytimeout != null) {
+                                    clearTimeout(mytimeout);
+                                    //console.log("cancelling timeout resize");
+                                }
+                                mytimeout = setTimeout(function() {
+                                    console.log("3d view force resize. 1 sec later");
+                                    threed.resize();
+                                }, 1000);
+        
+                            });
+                        });
+                });
         }, // end 3D Viewer
         
-    };
+    }; //return on cpdefine
 });
