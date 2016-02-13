@@ -75,14 +75,11 @@
     padding: 10px 15px;
     margin-bottom: 0;
 }
-#com-chilipeppr-widget-3dviewer-instance-controlpanel {
+#com-chilipeppr-3dviewer-controlpanel {
     padding: 0 10px;
     float: left;
 }
 #chilipeppr-3dviewer {
     /* z-index: -1; */
     padding-right:10px;
-}
-#com-chilipeppr-widget-3dviewer-renderArea {
-    /* z-index:0; */
 }
