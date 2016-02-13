@@ -46,6 +46,9 @@
                 <!-- Change the width by adjusting col-md-4 to be col-md-3 for skinnier, or col-md-5 for wider -->
                 <!-- You must have all columns add up to 12 since we use bootstrap's col-md technique, i.e. col-md-2, col-md-7, col-md-3 adds to 12 -->
                 <div class="col-md-4 col-pad10">
+                    <!-- 3D Viewer. Must be loaded at top to get z-orders correct -->
+                        <div id="com-chilipeppr-3dviewer">Load 3D Viewport Here</div>
+
                     
                    <!-- Workspace Hdr -->
                     <div class="com-chilipeppr-ws-hdr well">Workspace -  Masterlefty Sample
@@ -85,10 +88,6 @@
 
                 <!-- Center Column -->
                 <div class="col-md-5 col-pad10">
-                    <!-- 3D Viewer. Must be loaded at top to get z-orders correct -->
-                    <div id="com-chilipeppr-3dViewer-instance">
-                        <p class="sample">The 3dViewer goes here</p>
-                    </div>
                     <div id="mywidget2-instance">
                         <p class="sample" style="min-height:200px;">Widget 2 goes here</p>
                     </div>
