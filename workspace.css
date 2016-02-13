@@ -21,11 +21,6 @@
 .col-nopadleft {
     padding-left:0;    
 }
-/* Feel free to remove this css tag to change the margin below the widgets */
-.well {
-    margin-bottom:10px;
-    background-color: rgba(127, 127, 127, 0.5);
-}
 
 .billboard-content {
     padding: 6px 20px;
