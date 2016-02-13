@@ -86,7 +86,16 @@
     padding: 4px 10px 10px 10px;
     background-color: rgba(255, 255, 255, 0.5);
 }
-
+#com-chilipeppr-widget-3dviewer .panel-heading, #com-chilipeppr-3dviewer-controlpanel .panel-heading {
+    background:none;
+    /* border:none; */
+    padding:10px 15px;
+    margin-bottom:0;
+}
+#com-chilipeppr-3dviewer-controlpanel {
+    padding:0 10px;
+    float:left;
+}
     </style>
 
     <script type='text/javascript'>
@@ -322,6 +331,23 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
         },
         
         // insert callbacks here
+        load3dviewer: function(callback) {
+            chilipeppr.load(
+                "#com-chilipeppr-3dviewer",
+                "http://raw.githubusercontent.com/chilipeppr/widget-3dviewer/master/auto-generated-widget.html",
+                function() {
+                    // Callback after widget loaded into #myDivWidgetInsertedInto
+                    cprequire(
+                        ["inline:com-chilipeppr-widget-3dviewer"], // the id you gave your widget
+                        function(mywidget) {
+                            // Callback that is passed reference to your newly loaded widget
+                            console.log("My widget just got loaded.", mywidget);
+                            mywidget.init();
+                        }
+                    );
+                }
+            );
+        }, // end 3D Viewer
         
     };
 });
