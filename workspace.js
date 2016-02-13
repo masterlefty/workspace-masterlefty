@@ -74,7 +74,6 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             
             this.loadTouchPlateWidget();
             
-            this.load3dViewerWidget();
             
             // Setup an event to react to window resize. This helps since
             // some of our widgets have a manual resize to cleanly fill
@@ -118,26 +117,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             if (this.widgetConsole) this.widgetConsole.resize();
         },
         
-        /**
-         * Load the 3d viewer via chilipeppr.load()
-         */
-        load3dViewerWidget: function() {
-                chilipeppr.load(
-                    "#com-chilipeppr-widget-3dviewer-instance",
-                    "http://raw.githubusercontent.com/chilipeppr/widget-3dviewer/master/auto-generated-widget.html",
-                    function() {
-                        // Callback after widget loaded into #myDivWidgetInsertedInto
-                        cprequire(
-                            ["inline:com-chilipeppr-widget-3dviewer"], // the id you gave your widget
-                            function(mywidget) {
-                                // Callback that is passed reference to your newly loaded widget
-                                console.log("My widget just got loaded.", mywidget);
-                                mywidget.init();
-                            }
-                        );
-                    }
-                );
-        },
+       
         /**
          * Load the Touch Plate widget via chilipeppr.load()
          */
@@ -250,5 +230,5 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                 }
             );
         },
-    }
+    };
 });
