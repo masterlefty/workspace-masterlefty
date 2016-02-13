@@ -34,24 +34,23 @@
 </head>
 
 <body>
-
+    <!-- This is the workspace layout for the Gcode Workspace -->
     <div id="com-chilipeppr-widget-flash-instance"></div>
-    
+    <!-- This is the Masterlefty layout -->
     <div id="com-chilipeppr-workspace-masterlefty" class="xhidden">
 
         <div class="container-fluid">
             <div class="row">
-                
+
                 <!-- Left Column -->
                 <!-- Change the width by adjusting col-md-4 to be col-md-3 for skinnier, or col-md-5 for wider -->
                 <!-- You must have all columns add up to 12 since we use bootstrap's col-md technique, i.e. col-md-2, col-md-7, col-md-3 adds to 12 -->
-                <div class="col-md-3 col-pad10">
-                    <!-- 3D Viewer. Must be loaded at top to get z-orders correct -->
-                        <div id="com-chilipeppr-3dviewer">Load 3D Viewport Here</div>
+                <div class="col-md-4 col-pad10">
 
-                    
-                   <!-- Workspace Hdr -->
-                    <div class="com-chilipeppr-ws-hdr well">Workspace - Masterlefty Sample
+                    <div class="com-chilipeppr-ws-hdr well">
+                        
+                        Workspace - Sample
+
                         <div class="com-chilipeppr-ws-menu pull-right">
                             <div class="btn-group">
                                 <div class="dropdown">
@@ -72,14 +71,14 @@
 
                     </div>
 
-                    <div id="com-chilipeppr-widget-touchplate-instance">
-                        <p class="sample">The Touchplate widget goes here</p>
-                    </div>
-                    
                     <div id="mywidget1-instance">
                         <p class="sample">Widget 1 goes here</p>
                     </div>
-  
+                    
+                    <div id="com-chilipeppr-widget-template-instance">
+                        <p class="sample">Template Widget goes here</p>
+                    </div>
+
                     <div id="com-chilipeppr-widget-spconsole-instance">
                         Serial Port Console goes here.
                     </div>
@@ -88,9 +87,6 @@
 
                 <!-- Center Column -->
                 <div class="col-md-5 col-pad10">
-                    <div class="">
-                            <div id="com-chilipeppr-3dviewer-controlpanel" style=""></div>
-                    </div>
                     <div id="mywidget2-instance">
                         <p class="sample" style="min-height:200px;">Widget 2 goes here</p>
                     </div>
@@ -98,8 +94,6 @@
 
                 <!-- Right Column -->
                 <div class="col-md-3 col-pad10">
-                    <!-- XYZ -->
-                    <div id="com-chilipeppr-xyz-instance" class="">Load XYZ Here</div>
                     
                     <div id="com-chilipeppr-widget-serialport-instance">
                         Widget 3 goes here
@@ -136,7 +130,7 @@
             </p>
         </div>
     </div>
-
+    
 </body>
 
 </html>

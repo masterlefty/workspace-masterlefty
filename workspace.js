@@ -67,15 +67,13 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             this.loadConsoleWidget(function() {
                 setTimeout(function() { $(window).trigger('resize'); }, 100);
             });
+            
+            this.loadTemplateWidget();
+            
             // Create our workspace upper right corner triangle menu
             this.loadWorkspaceMenu();
             // Add our billboard to the menu (has name, url, picture of workspace)
             this.addBillboardToWorkspaceMenu();
-            
-            this.loadWidgets();
-            
-            this.loadTouchPlateWidget();
-            
             
             // Setup an event to react to window resize. This helps since
             // some of our widgets have a manual resize to cleanly fill
@@ -83,7 +81,6 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             // just set widget min-height in CSS instead
             this.setupResize();
             setTimeout(function() { $(window).trigger('resize'); }, 100);
-            
 
         },
         /**
@@ -118,8 +115,29 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
         onResize: function() {
             if (this.widgetConsole) this.widgetConsole.resize();
         },
-        
-        
+        /**
+         * Load the Template widget via chilipeppr.load() so folks have a sample
+         * widget they can fork as a starting point for their own.
+         */
+        loadTemplateWidget: function(callback) {
+
+            chilipeppr.load(
+                "#com-chilipeppr-widget-template-instance",
+                "http://raw.githubusercontent.com/chilipeppr/widget-template/master/auto-generated-widget.html",
+                function() {
+                    // Callback after widget loaded into #myDivWidgetTemplate
+                    // Now use require.js to get reference to instantiated widget
+                    cprequire(
+                        ["inline:com-chilipeppr-widget-template"], // the id you gave your widget
+                        function(myObjWidgetTemplate) {
+                            // Callback that is passed reference to the newly loaded widget
+                            console.log("Widget / Template just got loaded.", myObjWidgetTemplate);
+                            myObjWidgetTemplate.init();
+                        }
+                    );
+                }
+            );
+        },
         /**
          * Load the Serial Port JSON Server widget via chilipeppr.load()
          */
@@ -208,151 +226,6 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                     });
                 }
             );
-        }, // end default load Widgets
-        
-        // Begin section modeling original chilipeppr workspace
-        loadWidgets: function(callback) {
-            // Zipwhip texting
-            // com-chilipeppr-ws-zipwhip
-            
-            // Auto-Leveller
-            // com-chilipeppr-ws-autolevel
-            
-            // Macro
-            // com-chilipeppr-ws-macro
-            
-            //from this point on we pull from js fiddle, not migrated to github yet
-            // JScut
-            // com-chilipeppr-ws-jscut
-            
-            // Laser Solder
-            // com-chilipeppr-ws-jscut
-            
-            // Eagle BRD Import
-            // com-chilipeppr-widget-eagle
-            
-            // GPIO
-            // net-delarre-widget-gpio
-            
-            // SuttleXpress
-            // Dynamically load the ShuttleXpress Widget. i.e. wait til user clicks on
-            // lordmundi/btyfqk7w
-            
-            // Touch Plate
-            // Dynamically load the Touch Plate widget, i.e. wait til user clicks on 
-            
-            // Arduino / Atmel Firmware Programmer
-            // FIDDLE http://jsfiddle.net/chilipeppr/qcduvhkh/11/
-            
-            // Element / Drag Drop
-            // Load the dragdrop element into workspace toolbar
-            // http://jsfiddle.net/chilipeppr/Z9F6G/
-            
-            // 3D Viewer
-            // http://jsfiddle.net/chilipeppr/y3HRF
-            chilipeppr.load(
-                "#com-chilipeppr-3dviewer",
-                //"http://fiddle.jshell.net/chilipeppr/y3HRF/show/light/",
-                "http://raw.githubusercontent.com/chilipeppr/widget-3dviewer/master/auto-generated-widget.html",
-            
-                function() {
-                    console.log("got callback done loading 3d");
-            
-                    cprequire(
-                        ['inline:com-chilipeppr-widget-3dviewer'],
-            
-                        function(threed) {
-                            console.log("Running 3dviewer");
-                            threed.init();
-                            console.log("3d viewer initted");
-            
-                            // Ok, do someting whacky. Try to move the 3D Viewer 
-                            // Control Panel to the center column
-                            setTimeout(function() {
-                                var element = $('#com-chilipeppr-3dviewer .panel-heading').detach();
-                                $('#com-chilipeppr-3dviewer').addClass("noheight");
-                                $('#com-chilipeppr-widget-3dviewer').addClass("nomargin");
-                                $('#com-chilipeppr-3dviewer-controlpanel').append(element);
-                            }, 10);
-            
-                            // listen to resize events so we can resize our 3d viewer
-                            // this was done to solve the scrollbar residue we were seeing
-                            // resize this console on a browser resize
-                            var mytimeout = null;
-                            $(window).on('resize', function(evt) {
-                                //console.log("3d view force resize");
-                                if (mytimeout !== undefined && mytimeout != null) {
-                                    clearTimeout(mytimeout);
-                                    //console.log("cancelling timeout resize");
-                                }
-                                mytimeout = setTimeout(function() {
-                                    console.log("3d view force resize. 1 sec later");
-                                    threed.resize();
-                                }, 1000);
-            
-                            });
-                        });
-            
-                }); //End 3D Viewer
-                
-            // Gcode List v3
-            // OLD v2 http://jsfiddle.net/chilipeppr/F2Qn3/
-            // NEW v3 with onQueue/onWrite/onComplete
-            
-            // Serial Port Console Log Window
-            // http://jsfiddle.net/chilipeppr/JB2X7/
-            // NEW VERSION http://jsfiddle.net/chilipeppr/rczajbx0/
-            // The new version supports onQueue, onWrite, onComplete
-            
-            // XYZ
-            // http://jsfiddle.net/chilipeppr/gh45j/
-            chilipeppr.load(
-                "com-chilipeppr-xyz-instance",
-                // Lauer's new widget 8/16/15
-                "http://raw.githubusercontent.com/chilipeppr/widget-axes/master/auto-generated-widget.html",
-                // Temporary widget from Danal
-                //"http://fiddle.jshell.net/Danal/vktco1y6/show/light/", 
-                // Lauer's original core widget
-                //"http://fiddle.jshell.net/chilipeppr/gh45j/show/light/",
-            
-                function() {
-                    cprequire(
-                        ["inline:com-chilipeppr-widget-xyz"],
-            
-                        function(xyz) {
-                            xyz.init();
-                        });
-                }); //End XYZ
-            
-            // TinyG
-            // http://jsfiddle.net/chilipeppr/XxEBZ/
-            
-            // Serial Port Selector
-            // http://jsfiddle.net/chilipeppr/4RgrS/
-            // NEW VERSION for SPJS v1.7 http://jsfiddle.net/chilipeppr/vetj5fvx/
-
         },
-        
-        /**
-         * Load the Touch Plate widget via chilipeppr.load()
-         */
-        loadTouchPlateWidget: function(callback) {
-            chilipeppr.load(
-                "#com-chilipeppr-widget-touchplate-instance",
-                "http://raw.githubusercontent.com/masterlefty/current-widget-template/master/auto-generated-widget.html",
-                function() {
-                    // Callback after widget loaded into #myDivDlvpWidgetTouchplate
-                    // Now use require.js to get reference to instantiated widget
-                    cprequire(
-                        ["inline:com-chilipeppr-dlvp-widget-touchplate"], // the id you gave your widget
-                        function(myObjDlvpWidgetTouchplate) {
-                            // Callback that is passed reference to the newly loaded widget
-                            console.log("Dlvp Widget / Touchplate just got loaded.", myObjDlvpWidgetTouchplate);
-                            myObjDlvpWidgetTouchplate.init();
-                        }
-                    );
-                }
-            );
-        }, // end touchplate
-    }; // end return on cpdefine
+    };
 });
