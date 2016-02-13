@@ -40,13 +40,15 @@
     <!-- This is the Masterlefty layout -->
     <div id="com-chilipeppr-workspace-masterlefty" class="xhidden">
 
-        <div class="container-fluid" style = "background-color: #555555">
+        <div class="container-fluid" >
             <div class="row">
 
                 <!-- Left Column -->
                 <!-- Change the width by adjusting col-md-4 to be col-md-3 for skinnier, or col-md-5 for wider -->
                 <!-- You must have all columns add up to 12 since we use bootstrap's col-md technique, i.e. col-md-2, col-md-7, col-md-3 adds to 12 -->
                 <div class="col-md-4 col-pad10">
+                    <!-- 3D Viewer. Must be loaded at top to get z-orders correct -->
+                    <div id="com-chilipeppr-3dviewer">Load 3D Viewport Here</div>
                     
                     <!-- Workspace Hdr -->
                     <div class="com-chilipeppr-ws-hdr well">Workspace - Masterlefty
@@ -85,6 +87,9 @@
 
                 <!-- Center Column -->
                 <div class="col-md-5 col-pad10">
+                    <div class="">
+                        <div id="com-chilipeppr-3dviewer-controlpanel" style=""></div>
+                    </div>
                     
                     <div id="mywidget2-instance">
                         <p class="sample" style="min-height:200px;">Widget 2 goes here</p>
