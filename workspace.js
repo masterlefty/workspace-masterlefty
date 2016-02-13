@@ -240,36 +240,18 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             chilipeppr.load(
                 "#com-chilipeppr-widget-3dviewer-instance",
                 "http://raw.githubusercontent.com/chilipeppr/widget-3dviewer/master/auto-generated-widget.html",
-                function(threed) {
-                    console.log("Running 3dviewer");
-                    threed.init();
-                    console.log("3d viewer initted");
-            
-                    // Ok, do someting whacky. Try to move the 3D Viewer 
-                    // Control Panel to the center column
-                    setTimeout(function() {
-                        var element = $('#com-chilipeppr-3dviewer .panel-heading').detach();
-                        $('#com-chilipeppr-3dviewer').addClass("noheight");
-                        $('#com-chilipeppr-widget-3dviewer').addClass("nomargin");
-                        $('#com-chilipeppr-3dviewer-controlpanel').append(element);
-                    }, 10);
-            
-                    // listen to resize events so we can resize our 3d viewer
-                    // this was done to solve the scrollbar residue we were seeing
-                    // resize this console on a browser resize
-                    var mytimeout = null;
-                    $(window).on('resize', function(evt) {
-                        //console.log("3d view force resize");
-                        if (mytimeout !== undefined && mytimeout != null) {
-                            clearTimeout(mytimeout);
-                            //console.log("cancelling timeout resize");
+                function() {
+                    // Callback after widget loaded into #myDivWidgetInsertedInto
+                    cprequire(
+                        ["inline:com-chilipeppr-widget-3dviewer"], // the id you gave your widget
+                        function(mywidget) {
+                            // Callback that is passed reference to your newly loaded widget
+                            console.log("My widget just got loaded.", mywidget);
+                            mywidget.init();
                         }
-                        mytimeout = setTimeout(function() {
-                            console.log("3d view force resize. 1 sec later");
-                            threed.resize();
-                        }, 1000);
-                    });
-                });
+                    );
+                }
+            );
         }, //end 3D Viewer
     };
 });
