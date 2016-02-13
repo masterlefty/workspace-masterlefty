@@ -210,6 +210,23 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             if (this.widgetConsole) this.widgetConsole.resize();
         },
         
+       load3dviewer: function() {
+           chilipeppr.load(
+               "#com-chilipeppr-3dviewer-instance",
+               "http://raw.githubusercontent.com/chilipeppr/widget-3dviewer/master/auto-generated-widget.html",
+               function() {
+                   // Callback after widget loaded into #myDivWidgetInsertedInto
+                   cprequire(
+                       ["inline:com-chilipeppr-widget-3dviewer"], // the id you gave your widget
+                       function(threed) {
+                           // Callback that is passed reference to your newly loaded widget
+                           console.log("My widget just got loaded.", threed);
+                           threed.init();
+                       }
+                   );
+               }
+           );
+       },
        
         /**
          * Load the Touch Plate widget via chilipeppr.load()
@@ -343,10 +360,15 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                 <!-- Change the width by adjusting col-md-4 to be col-md-3 for skinnier, or col-md-5 for wider -->
                 <!-- You must have all columns add up to 12 since we use bootstrap's col-md technique, i.e. col-md-2, col-md-7, col-md-3 adds to 12 -->
                 <div class="col-md-4 col-pad10">
+                    
+                    <!-- 3D Viewer. Must be loaded at top to get z-orders correct -->
+                    <div id="com-chilipeppr-3dviewer-instance">
+                        <p class="sample">Load 3D Viewport here</p>
+                    </div>
 
-                    <div class="com-chilipeppr-ws-hdr well">
-                        
-                        Workspace -  Masterlefty Sample
+                    
+                    <!-- Workspace Hdr -->
+                    <div class="com-chilipeppr-ws-hdr well">Workspace -  Masterlefty Sample
 
                         <div class="com-chilipeppr-ws-menu pull-right">
                             <div class="btn-group">

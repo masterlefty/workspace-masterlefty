@@ -117,6 +117,23 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             if (this.widgetConsole) this.widgetConsole.resize();
         },
         
+       load3dviewer: function() {
+           chilipeppr.load(
+               "#com-chilipeppr-3dviewer-instance",
+               "http://raw.githubusercontent.com/chilipeppr/widget-3dviewer/master/auto-generated-widget.html",
+               function() {
+                   // Callback after widget loaded into #myDivWidgetInsertedInto
+                   cprequire(
+                       ["inline:com-chilipeppr-widget-3dviewer"], // the id you gave your widget
+                       function(threed) {
+                           // Callback that is passed reference to your newly loaded widget
+                           console.log("My widget just got loaded.", threed);
+                           threed.init();
+                       }
+                   );
+               }
+           );
+       },
        
         /**
          * Load the Touch Plate widget via chilipeppr.load()
