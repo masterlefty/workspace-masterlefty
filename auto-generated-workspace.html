@@ -224,10 +224,10 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                     // Callback after widget loaded into #myDivWidgetInsertedInto
                     cprequire(
                         ["inline:com-chilipeppr-widget-3dviewer"], // the id you gave your widget
-                        function(mywidget) {
+                        function(my3dViewer) {
                             // Callback that is passed reference to your newly loaded widget
-                            console.log("My widget just got loaded.", mywidget);
-                            mywidget.init();
+                            console.log("My widget just got loaded.", my3dViewer);
+                            my3dViewer.init();
                         }
                     );
                 }
