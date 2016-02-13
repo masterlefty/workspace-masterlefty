@@ -361,6 +361,11 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
 
         <div class="container-fluid">
             <div class="row">
+                
+                <!-- 3D Viewer. Must be loaded at top to get z-orders correct -->
+                <div id="com-chilipeppr-3dViewer-instance">
+                    <p class="sample">The 3dViewer goes here</p>
+                </div>
 
                 <!-- Left Column -->
                 <!-- Change the width by adjusting col-md-4 to be col-md-3 for skinnier, or col-md-5 for wider -->
@@ -406,10 +411,6 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
 
                 <!-- Center Column -->
                 <div class="col-md-5 col-pad10">
-                    <!-- 3D Viewer. Must be loaded at top to get z-orders correct -->
-                    <div id="com-chilipeppr-3dViewer-instance">
-                        <p class="sample">The 3dViewer goes here</p>
-                    </div>
                     <div id="mywidget2-instance">
                         <p class="sample" style="min-height:200px;">Widget 2 goes here</p>
                     </div>
