@@ -73,7 +73,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             });
             
             this.loadWidget1();
-            // this.loadTouchplate();
+            this.loadTouchplate();
             this.loadAxes();
             
             // Create our workspace upper right corner triangle menu
@@ -279,7 +279,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                 }
             );
         },
-        /* loadTouchplate: function(callback) {
+        loadTouchplate: function(callback) {
             var that = this;
             chilipeppr.load(
                 "#com-chilipeppr-dlvp-widget-touchplate-instance",
@@ -298,7 +298,6 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                 }
             );
         },
-        */
         
         loadWidget1: function(callback) {
             chilipeppr.load(
