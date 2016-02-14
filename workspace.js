@@ -85,7 +85,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             this.loadAxesWidget();
             // Instantiate the Tinyg Widget
             this.loadTinygWidget();
-            // Most workspaces will instantiate the Serial Port JSON Server widget
+            // Instantiate the Serial Port JSON Server widget
             this.loadSpjsWidget();
             
             // end Right Column
@@ -173,7 +173,6 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
          * a starting point for their own.
          */
         loadTemplateWidget: function(callback) {
-
             chilipeppr.load(
                 "#com-chilipeppr-widget-template-instance",
                 "http://raw.githubusercontent.com/chilipeppr/widget-template/master/auto-generated-widget.html",
@@ -304,9 +303,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
          * Load the Serial Port JSON Server widget via chilipeppr.load()
          */
         loadSpjsWidget: function(callback) {
-
             var that = this;
-
             chilipeppr.load(
                 "#com-chilipeppr-widget-serialport-instance",
                 "http://fiddle.jshell.net/chilipeppr/vetj5fvx/show/light/",
