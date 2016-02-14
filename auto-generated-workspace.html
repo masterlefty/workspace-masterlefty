@@ -297,6 +297,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                 setTimeout(function() { $(window).trigger('resize'); }, 100);
             });
             
+            this.loadWidget1();
             this.loadTouchplate();
             this.loadAxes();
             
@@ -523,6 +524,24 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             );
         },
         
+        loadWidget1: function(callback) {
+            chilipeppr.load(
+                "#mybidget1-instance",
+                "http://raw.githubusercontent.com/chilipeppr/widget-touchplate/master/auto-generated-widget.html",
+                function() {
+                    // Callback after widget loaded into #myDivWidgetTouchplate
+                    // Now use require.js to get reference to instantiated widget
+                    cprequire(
+                        ["inline:com-chilipeppr-widget-touchplate"], // the id you gave your widget
+                        function(myObjWidgetTouchplate) {
+                            // Callback that is passed reference to the newly loaded widget
+                            console.log("Widget / Touch Plate just got loaded.", myObjWidgetTouchplate);
+                            myObjWidgetTouchplate.init();
+                        }
+                    );
+                }
+            );
+        },
         
         
         //load here
