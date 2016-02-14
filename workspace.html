@@ -35,9 +35,11 @@
 
 <body>
     <!-- This is the workspace layout for the Gcode Workspace -->
+    
+    <!-- Load the flash widget to dispay messages -->
     <div id="com-chilipeppr-widget-flash-instance"></div>
     
-    <!-- This is the Masterlefty layout -->
+    <!-- This is the Id for the Masterlefty workspace -->
     <div id="com-chilipeppr-workspace-masterlefty" class="xhidden">
 
         <div class="container-fluid" >
@@ -52,7 +54,6 @@
                     <div id="com-chilipeppr-3dviewer">Load 3D Viewport Here</div>
                     
                     <!-- Workspace Hdr -->
-                    
                     <div class="com-chilipeppr-ws-hdr well">
                         <span class="workspace-title">Workspace – Masterlefty</span>
                         <div class="com-chilipeppr-ws-menu pull-right">
@@ -67,41 +68,49 @@
                                             <!-- End Billboard -->
                                         </li>
                                     </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                </div> <!-- End dropdown -->
+                            </div> <!-- End btn-group -->
+                        </div> <!-- End ws-menu -->
+                    </div> <!-- End Workspace Hdr -->
                     
+                    <!-- Begin inserting Widgets -->
+                    <!-- Insert Widget 1 (Sample) -->
                     <div id="mywidget1-instance">
                         <p class="sample">Widget 1 goes here</p>
                     </div>
                     
+                    <!-- Insert Widget 2 / Touch Plate -->
                     <div id="com-chilipeppr-dlvp-widget-touchplate-instance">
-                        <p class="sample">Touchplate Widget goes here</p>
+                        <p class="">Touchplate Widget goes here</p>
                     </div>
-                    <!-- Gcode List -->
-                        <div id="com-chilipeppr-widget-gcode-list-instance" class="zhigh">
-                            Load Gcode List Here
-                        </div>
+                    
+                    <!-- Insert Widget 3 / Gcode List -->
+                    <div id="com-chilipeppr-widget-gcode-list-instance">
+                        <p class="zhigh"> Load Gcode List Here </p>
+                    </div>
 
+                    <!-- Insert Widget 4 / Serial Port Console -->
                     <div id="com-chilipeppr-widget-spconsole-instance">
                         Serial Port Console goes here.
                     </div>
 
-                </div>
+                </div> <!-- End Left Column -->
 
                 <!-- Center Column -->
                 <div class="col-md-6 col-pad10">
-                    <div class="">
-                        <div id="com-chilipeppr-3dviewer-controlpanel" style=""></div>
-                    </div>
                     
+                    <!-- Begin inserting Widgets -->
+                    <!-- 3D Viewer control panel -->
+                    <div id="com-chilipeppr-3dviewer-controlpanel">
+                        <p class="" style=""> 3d viewer</p>
+                    </div>
+
                     <!--
                     <div id="mywidget2-instance">
                         <p class="sample" style="min-height:200px;">Widget 2 goes here</p>
                     </div> 
                     -->
-                </div>
+                </div> <!-- end of center column -->
 
                 <!-- Right Column -->
                 <div class="col-md-3 col-pad10">
@@ -118,11 +127,10 @@
                         <p class="sample">Widget 3 goes here</p>
                     </div>
 
-                </div>
-
-            </div>
-        </div>
-    </div>
+                </div> <!-- end of right column -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container-fluid -->
+    </div> <!-- end of Masterlefty workspace -->
 
     <!-- Keep this div hidden so it can be cloned and used by the Javascript -->
     <div id="com-chilipeppr-workspace-sample-billboard" class="hidden">
