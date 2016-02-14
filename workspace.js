@@ -74,6 +74,8 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             
             this.loadTemplateWidget();
             
+            this.loadAxes();
+            
             // Create our workspace upper right corner triangle menu
             this.loadWorkspaceMenu();
             // Add our billboard to the menu (has name, url, picture of workspace)
@@ -254,6 +256,25 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                         
                         if (callback) callback();
                     });
+                }
+            );
+        },
+        
+        loadAxes: function(callback) {
+            chilipeppr.load(
+                "#com-chilipeppr-widget-xyz-instance",
+                "http://raw.githubusercontent.com/chilipeppr/widget-axes/master/auto-generated-widget.html",
+                function() {
+                    // Callback after widget loaded into #myDivWidgetXyz
+                    // Now use require.js to get reference to instantiated widget
+                    cprequire(
+                        ["inline:com-chilipeppr-widget-xyz"], // the id you gave your widget
+                        function(myObjWidgetXyz) {
+                            // Callback that is passed reference to the newly loaded widget
+                            console.log("Widget / XYZ Axes just got loaded.", myObjWidgetXyz);
+                            myObjWidgetXyz.init();
+                        }
+                    );
                 }
             );
         },
