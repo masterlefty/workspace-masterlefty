@@ -297,24 +297,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             );
         },
         
-        loadWidget1:function(callback) {
-            chilipeppr.load(
-                "#mywidget1-instance",
-                "http://raw.githubusercontent.com/chilipeppr/widget-autolevel/master/auto-generated-widget.html",
-                function() {
-                    // Callback after widget loaded into #myDivWidgetAutolevel
-                    // Now use require.js to get reference to instantiated widget
-                    cprequire(
-                        ["inline:com-chilipeppr-widget-autolevel"], // the id you gave your widget
-                        function(myObjWidgetAutolevel) {
-                            // Callback that is passed reference to the newly loaded widget
-                            console.log("Widget / Auto-Level just got loaded.", myObjWidgetAutolevel);
-                            myObjWidgetAutolevel.init();
-                        }
-                    );
-                }
-            );
-        },
+        
         
         //load here
         // insert callbacks here
