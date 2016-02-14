@@ -147,18 +147,7 @@
     text-align:center;
     pointer-events: none;
 }
-#com-chilipeppr-ws-gcode-dragdropoverlay .well {
-    background-color: rgba(127, 127, 127, 0.5);
-}
-#com-chilipeppr-ws-gcode-wrapper.hover {
-    /* background-color: blue; */
-}
-.com-chilipeppr-elem-dragdrop {
-    /* border: 1px dashed gray; */
-    /* border-radius: 4px; */
-    padding:0;
-    margin-right:6px;
-}
+
 .padrt {
     padding-right:10px;
     padding-left:10px;
@@ -167,20 +156,15 @@
     /* z-index:5; */
     position:relative;
 }
-#com-chilipeppr-ws-gcode-wrapper .dropdown-menu {
-    /* z-index:20; */
-}
-#mainnav {
-    z-index:5;
-}
+
 .nopadding {
     padding:0;
 }
-/*#com-chilipeppr-widget-3dviewer .panel-heading, #com-chilipeppr-3dviewer-controlpanel .panel-heading {
+#com-chilipeppr-widget-3dviewer .panel-heading, #com-chilipeppr-3dviewer-controlpanel .panel-heading {
     background:none;
     padding:10px 15px;
     margin-bottom:0;
-}*/
+}
 #com-chilipeppr-3dviewer-controlpanel {
     padding:0 10px;
     float:left;
@@ -193,7 +177,7 @@
 #com-chilipeppr-serialport-ws-hdr {
     /* z-index:5; */
 }
-.well.com-chilipeppr-ws-hdr {
+.com-chilipeppr-ws-hdr .well{
     padding:10px 15px;
     /* padding:8px; */
     /* padding-left:15px; */
@@ -314,7 +298,6 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             });
             
             this.loadTouchplate();
-            this.loadWidget1();
             this.loadAxes();
             
             // Create our workspace upper right corner triangle menu
@@ -502,7 +485,6 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
         },
         
         loadAxes: function(callback) {
-            var that = this;
             chilipeppr.load(
                 "#com-chilipeppr-widget-xyz-instance",
                 "http://raw.githubusercontent.com/chilipeppr/widget-axes/master/auto-generated-widget.html",
@@ -545,7 +527,6 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
         //load here
         // insert callbacks here
         load3dviewer: function(callback) {
-            var that = this;
             chilipeppr.load(
                 "#com-chilipeppr-3dviewer",
                 //"http://fiddle.jshell.net/chilipeppr/y3HRF/show/light/",
