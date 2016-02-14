@@ -301,7 +301,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
         
         loadWidget1: function(callback) {
             chilipeppr.load(
-                "#mybidget1-instance",
+                "#mywidget1-instance",
                 "http://raw.githubusercontent.com/chilipeppr/widget-touchplate/master/auto-generated-widget.html",
                 function() {
                     // Callback after widget loaded into #myDivWidgetTouchplate
