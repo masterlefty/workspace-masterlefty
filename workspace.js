@@ -261,6 +261,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
         },
         
         loadAxes: function(callback) {
+            var that = this;
             chilipeppr.load(
                 "#com-chilipeppr-widget-xyz-instance",
                 "http://raw.githubusercontent.com/chilipeppr/widget-axes/master/auto-generated-widget.html",
@@ -279,6 +280,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             );
         },
         loadTouchplate: function(callback) {
+            var that = this;
             chilipeppr.load(
                 "#com-chilipeppr-dlvp-widget-touchplate-instance",
                 "http://raw.githubusercontent.com/masterlefty/widget-touchplate/master/auto-generated-widget.html",
@@ -302,6 +304,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
         //load here
         // insert callbacks here
         load3dviewer: function(callback) {
+            var that = this;
             chilipeppr.load(
                 "#com-chilipeppr-3dviewer",
                 //"http://fiddle.jshell.net/chilipeppr/y3HRF/show/light/",
