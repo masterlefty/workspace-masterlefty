@@ -172,6 +172,9 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             // end Center Column
             
             // Right Column
+            
+            // Instantiate the Axes Widget
+            this.loadAxesWidget();
 
             // Most workspaces will instantiate the Serial Port JSON Server widget
             this.loadSpjsWidget();
@@ -343,6 +346,28 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
          * Loading zone for the Right Column widgets
          * Load the widgets via chilipeppr.load()
          ******************/
+        
+        /**
+         * Load the Axes widget via chilipeppr.load()
+         */
+        loadAxesWidget: function(callback) {
+            chilipeppr.load(
+                "#com-chilipeppr-widget-xyz-instance",
+                "http://raw.githubusercontent.com/chilipeppr/widget-axes/master/auto-generated-widget.html",
+                function() {
+                    // Callback after widget loaded into #myDivWidgetXyz
+                    // Now use require.js to get reference to instantiated widget
+                    cprequire(
+                        ["inline:com-chilipeppr-widget-xyz"], // the id you gave your widget
+                        function(myObjWidgetXyz) {
+                            // Callback that is passed reference to the newly loaded widget
+                            console.log("Widget / XYZ Axes just got loaded.", myObjWidgetXyz);
+                            myObjWidgetXyz.init();
+                        }
+                    );
+                }
+            );
+        },
         
         /**
          * Load the Serial Port JSON Server widget via chilipeppr.load()
