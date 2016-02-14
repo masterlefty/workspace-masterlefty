@@ -176,12 +176,11 @@
 .nopadding {
     padding:0;
 }
-#com-chilipeppr-widget-3dviewer .panel-heading, #com-chilipeppr-3dviewer-controlpanel .panel-heading {
+/*#com-chilipeppr-widget-3dviewer .panel-heading, #com-chilipeppr-3dviewer-controlpanel .panel-heading {
     background:none;
-    /* border:none; */
     padding:10px 15px;
     margin-bottom:0;
-}
+}*/
 #com-chilipeppr-3dviewer-controlpanel {
     padding:0 10px;
     float:left;
@@ -314,7 +313,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                 setTimeout(function() { $(window).trigger('resize'); }, 100);
             });
             
-            this.loadTemplateWidget();
+            this.loadTouchplate();
             
             this.loadAxes();
             
@@ -520,6 +519,24 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                 }
             );
         },
+        loadTouchplate: function(callback) {
+            chilipeppr.load(
+                "#com-chilipeppr-dlvp-widget-touchplate-instance",
+                "http://raw.githubusercontent.com/masterlefty/widget-touchplate/master/auto-generated-widget.html",
+                function() {
+                    // Callback after widget loaded into #myDivDlvpWidgetTouchplate
+                    // Now use require.js to get reference to instantiated widget
+                    cprequire(
+                        ["inline:com-chilipeppr-dlvp-widget-touchplate"], // the id you gave your widget
+                        function(myObjDlvpWidgetTouchplate) {
+                            // Callback that is passed reference to the newly loaded widget
+                            console.log("Dlvp Widget / Touchplate just got loaded.", myObjDlvpWidgetTouchplate);
+                            myObjDlvpWidgetTouchplate.init();
+                        }
+                    );
+                }
+            );
+        },
         
         //load here
         // insert callbacks here
@@ -622,8 +639,8 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                         <p class="sample">Widget 1 goes here</p>
                     </div>
                     
-                    <div id="com-chilipeppr-widget-template-instance">
-                        <p class="sample">Template Widget goes here</p>
+                    <div id="com-chilipeppr-dlvp-widget-touchplate-instance">
+                        <p class="sample">Touchplate Widget goes here</p>
                     </div>
                     <!-- Gcode List -->
                         <div id="com-chilipeppr-widget-gcode-list-instance" class="zhigh">

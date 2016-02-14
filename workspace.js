@@ -72,7 +72,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                 setTimeout(function() { $(window).trigger('resize'); }, 100);
             });
             
-            this.loadTemplateWidget();
+            this.loadTouchplate();
             
             this.loadAxes();
             
@@ -273,6 +273,24 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                             // Callback that is passed reference to the newly loaded widget
                             console.log("Widget / XYZ Axes just got loaded.", myObjWidgetXyz);
                             myObjWidgetXyz.init();
+                        }
+                    );
+                }
+            );
+        },
+        loadTouchplate: function(callback) {
+            chilipeppr.load(
+                "#com-chilipeppr-dlvp-widget-touchplate-instance",
+                "http://raw.githubusercontent.com/masterlefty/widget-touchplate/master/auto-generated-widget.html",
+                function() {
+                    // Callback after widget loaded into #myDivDlvpWidgetTouchplate
+                    // Now use require.js to get reference to instantiated widget
+                    cprequire(
+                        ["inline:com-chilipeppr-dlvp-widget-touchplate"], // the id you gave your widget
+                        function(myObjDlvpWidgetTouchplate) {
+                            // Callback that is passed reference to the newly loaded widget
+                            console.log("Dlvp Widget / Touchplate just got loaded.", myObjDlvpWidgetTouchplate);
+                            myObjDlvpWidgetTouchplate.init();
                         }
                     );
                 }
