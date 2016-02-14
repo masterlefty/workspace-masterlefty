@@ -64,8 +64,8 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             
             // Left Column
             
-            // Instantiate the Widget Template
-            this.loadTemplateWidget();
+            // Instantiate the Touch Plate Widget
+            this.loadTouchplateWidget();
             
             // Instantiate the Gcode Widget
             this.loadGcodeWidget();
@@ -168,23 +168,21 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
          ******************/
         
         /**
-         * Load the Template widget via chilipeppr.load() 
-         * so folks have a sample widget they can fork as
-         * a starting point for their own.
+         * Load the Touch Plate widget via chilipeppr.load()
          */
-        loadTemplateWidget: function(callback) {
+        loadTouchplateWidget: function(callback) {
             chilipeppr.load(
-                "#com-chilipeppr-widget-template-instance",
-                "http://raw.githubusercontent.com/chilipeppr/widget-template/master/auto-generated-widget.html",
+                "#com-chilipeppr-dlvp-widget-touchplate-instance",
+                "http://raw.githubusercontent.com/masterlefty/dlvp-widget-touchplate/master/auto-generated-widget.html",
                 function() {
-                    // Callback after widget loaded into #myDivWidgetTemplate
+                    // Callback after widget loaded into #myDivDlvpWidgetTouchplate
                     // Now use require.js to get reference to instantiated widget
                     cprequire(
-                        ["inline:com-chilipeppr-widget-template"], // the id you gave your widget
-                        function(myObjWidgetTemplate) {
+                        ["inline:com-chilipeppr-dlvp-widget-touchplate"], // the id you gave your widget
+                        function(myObjDlvpWidgetTouchplate) {
                             // Callback that is passed reference to the newly loaded widget
-                            console.log("Widget / Template just got loaded.", myObjWidgetTemplate);
-                            myObjWidgetTemplate.init();
+                            console.log("Dlvp Widget / Touchplate just got loaded.", myObjDlvpWidgetTouchplate);
+                            myObjDlvpWidgetTouchplate.init();
                         }
                     );
                 }
