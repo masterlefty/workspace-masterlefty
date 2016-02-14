@@ -63,8 +63,10 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
 
             // Most workspaces will instantiate the Serial Port JSON Server widget
             this.loadSpjsWidget();
+            
             // Instantiate the G-Code list widget
             this.loadGcodeListWidget();
+            
             // Most workspaces will instantiate the Serial Port Console widget
             this.loadConsoleWidget(function() {
                 setTimeout(function() { $(window).trigger('resize'); }, 100);
@@ -121,6 +123,24 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             if (this.widgetConsole) this.widgetConsole.resize();
         },
         
+        loadGcodeListWidget: function(callback) {
+            chilipeppr.load(
+                "#com-chilipeppr-widget-gcode-list-instance",
+                "http://raw.githubusercontent.com/chilipeppr/widget-gcodelist/master/auto-generated-widget.html",
+                function() {
+                    // Callback after widget loaded into #myDivWidgetGcode
+                    // Now use require.js to get reference to instantiated widget
+                    cprequire(
+                      ["inline:com-chilipeppr-widget-gcode"], // the id you gave your widget
+                      function(myObjWidgetGcode) {
+                        // Callback that is passed reference to the newly loaded widget
+                        console.log("Widget / Gcode v3 just got loaded.", myObjWidgetGcode);
+                        myObjWidgetGcode.init();
+                      }
+                    );
+                  }
+            );
+        },
         
         /**
          * Load the Template widget via chilipeppr.load() so folks have a sample
@@ -178,26 +198,8 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             );
         },
         
-        // Gcode List v3
-            // OLD v2 http://jsfiddle.net/chilipeppr/F2Qn3/
-            // NEW v3 with onQueue/onWrite/onComplete http://jsfiddle.net/chilipeppr/a4g5ds5n/
-        loadGcodeListWidget: function(callback) {
-            chilipeppr.load("#com-chilipeppr-widget-gcode-list-instance",
-                "http://raw.githubusercontent.com/chilipeppr/widget-gcodelist/master/auto-generated-widget.html",
-
-                function() {
-                    cprequire(
-                        ["inline:com-chilipeppr-widget-gcode"],
-
-                        function(gcodelist) {
-                            gcodelist.init({
-                                lineNumbersOnByDefault: true
-                            });
-                        }
-                    );
-                }
-            ); //End Gcode List v3
-        },
+        
+        
         /**
          * Load the Console widget via chilipeppr.load()
          */
