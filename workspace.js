@@ -61,15 +61,30 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
          */
         
         init: function() {
-
-            // Most workspaces will instantiate the Serial Port JSON Server widget
-            this.loadSpjsWidget();
+            
+            // Left Column
+            
+            // Instantiate the Widget Template
+            this.loadTemplateWidget();
+            
+            // Instantiate the Gcode Widget
+            this.loadGcodeWidget();
+            
             // Most workspaces will instantiate the Serial Port Console widget
             this.loadConsoleWidget(function() {
                 setTimeout(function() { $(window).trigger('resize'); }, 100);
             });
+            // end Left Column
             
-            this.loadTemplateWidget();
+            // Center Column
+            // end Center Column
+            
+            // Right Column
+
+            // Most workspaces will instantiate the Serial Port JSON Server widget
+            this.loadSpjsWidget();
+            
+            // end Right Column
             
             // Create our workspace upper right corner triangle menu
             this.loadWorkspaceMenu();
@@ -105,6 +120,32 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             $('#' + this.id + ' .com-chilipeppr-ws-billboard').append(billboardEl);
         },
         /**
+         * Load the workspace menu and show the pubsubviewer and fork links using
+         * our pubsubviewer widget that makes those links for us.
+         */
+        loadWorkspaceMenu: function(callback) {
+            // Workspace Menu with Workspace Billboard
+            var that = this;
+            chilipeppr.load(
+                "http://fiddle.jshell.net/chilipeppr/zMbL9/show/light/",
+                function() {
+                    require(['inline:com-chilipeppr-elem-pubsubviewer'], function(pubsubviewer) {
+
+                        var el = $('#' + that.id + ' .com-chilipeppr-ws-menu .dropdown-menu-ws');
+                        console.log("got callback for attachto menu for workspace. attaching to el:", el);
+
+                        pubsubviewer.attachTo(
+                            el,
+                            that,
+                            "Workspace"
+                        );
+                        
+                        if (callback) callback();
+                    });
+                }
+            );
+        }, // end loadWorkspaceMenu
+        /**
          * Listen to window resize event.
          */
         setupResize: function() {
@@ -116,9 +157,16 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
         onResize: function() {
             if (this.widgetConsole) this.widgetConsole.resize();
         },
+        
+        /*******************
+         * Loading zone for the Left Column widgets
+         * Load the widgets via chilipeppr.load()
+         ******************/
+        
         /**
-         * Load the Template widget via chilipeppr.load() so folks have a sample
-         * widget they can fork as a starting point for their own.
+         * Load the Template widget via chilipeppr.load() 
+         * so folks have a sample widget they can fork as
+         * a starting point for their own.
          */
         loadTemplateWidget: function(callback) {
 
@@ -139,6 +187,56 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                 }
             );
         },
+        
+        /**
+         * Load the Gcode widget via chilipeppr.load()
+         */
+        loadGcodeWidget: function(callback) {
+            
+        },
+        
+        /**
+         * Load the Console widget via chilipeppr.load()
+         */
+        loadConsoleWidget: function(callback) {
+            var that = this;
+            chilipeppr.load(
+                "#com-chilipeppr-widget-spconsole-instance",
+                "http://fiddle.jshell.net/chilipeppr/rczajbx0/show/light/",
+                function() {
+                    // Callback after widget loaded into #com-chilipeppr-widget-spconsole-instance
+                    cprequire(
+                        ["inline:com-chilipeppr-widget-spconsole"], // the id you gave your widget
+                        function(mywidget) {
+                            // Callback that is passed reference to your newly loaded widget
+                            console.log("My Console widget just got loaded.", mywidget);
+                            that.widgetConsole = mywidget;
+                            
+                            // init the serial port console
+                            // 1st param tells the console to use "single port mode" which
+                            // means it will only show data for the green selected serial port
+                            // rather than for multiple serial ports
+                            // 2nd param is a regexp filter where the console will filter out
+                            // annoying messages you don't generally want to see back from your
+                            // device, but that the user can toggle on/off with the funnel icon
+                            that.widgetConsole.init(true, /myfilter/);
+                            if (callback) callback(mywidget);
+                        }
+                    );
+                }
+            );
+        },
+        
+        /*******************
+         * Loading zone for the Center Column widgets
+         * Load the widgets via chilipeppr.load()
+         ******************/
+        
+        /*******************
+         * Loading zone for the Right Column widgets
+         * Load the widgets via chilipeppr.load()
+         ******************/
+        
         /**
          * Load the Serial Port JSON Server widget via chilipeppr.load()
          */
@@ -171,63 +269,8 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                 }
             );
         },
-        /**
-         * Load the Console widget via chilipeppr.load()
-         */
-        loadConsoleWidget: function(callback) {
-            var that = this;
-            chilipeppr.load(
-                "#com-chilipeppr-widget-spconsole-instance",
-                "http://fiddle.jshell.net/chilipeppr/rczajbx0/show/light/",
-                function() {
-                    // Callback after widget loaded into #com-chilipeppr-widget-spconsole-instance
-                    cprequire(
-                        ["inline:com-chilipeppr-widget-spconsole"], // the id you gave your widget
-                        function(mywidget) {
-                            // Callback that is passed reference to your newly loaded widget
-                            console.log("My Console widget just got loaded.", mywidget);
-                            that.widgetConsole = mywidget;
-                            
-                            // init the serial port console
-                            // 1st param tells the console to use "single port mode" which
-                            // means it will only show data for the green selected serial port
-                            // rather than for multiple serial ports
-                            // 2nd param is a regexp filter where the console will filter out
-                            // annoying messages you don't generally want to see back from your
-                            // device, but that the user can toggle on/off with the funnel icon
-                            that.widgetConsole.init(true, /myfilter/);
-                            if (callback) callback(mywidget);
-                        }
-                    );
-                }
-            );
-        },
-        /**
-         * Load the workspace menu and show the pubsubviewer and fork links using
-         * our pubsubviewer widget that makes those links for us.
-         */
-        loadWorkspaceMenu: function(callback) {
-            // Workspace Menu with Workspace Billboard
-            var that = this;
-            chilipeppr.load(
-                "http://fiddle.jshell.net/chilipeppr/zMbL9/show/light/",
-                function() {
-                    require(['inline:com-chilipeppr-elem-pubsubviewer'], function(pubsubviewer) {
-
-                        var el = $('#' + that.id + ' .com-chilipeppr-ws-menu .dropdown-menu-ws');
-                        console.log("got callback for attachto menu for workspace. attaching to el:", el);
-
-                        pubsubviewer.attachTo(
-                            el,
-                            that,
-                            "Workspace"
-                        );
-                        
-                        if (callback) callback();
-                    });
-                }
-            );
-        }, // end loadWorkspaceMenu
+        
+        
         
     }; //return on cpdefine
 });
