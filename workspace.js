@@ -83,7 +83,8 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             
             // Instantiate the Axes Widget
             this.loadAxesWidget();
-
+            // Instantiate the Tinyg Widget
+            this.loadTinygWidget();
             // Most workspaces will instantiate the Serial Port JSON Server widget
             this.loadSpjsWidget();
             
@@ -271,6 +272,28 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                             // Callback that is passed reference to the newly loaded widget
                             console.log("Widget / XYZ Axes just got loaded.", myObjWidgetXyz);
                             myObjWidgetXyz.init();
+                        }
+                    );
+                }
+            );
+        },
+        
+        /**
+         * Load the Tinyg widget via chilipeppr.load()
+         */
+        loadTinygWidget: function(callback) {
+            chilipeppr.load(
+                "#com-chilipeppr-widget-tinyg-instance",
+                "http://raw.githubusercontent.com/chilipeppr/widget-tinyg/master/auto-generated-widget.html",
+                function() {
+                    // Callback after widget loaded into #myDivWidgetTinyg
+                    // Now use require.js to get reference to instantiated widget
+                    cprequire(
+                        ["inline:com-chilipeppr-widget-tinyg"], // the id you gave your widget
+                        function(myObjWidgetTinyg) {
+                            // Callback that is passed reference to the newly loaded widget
+                            console.log("Widget / Tinyg v2.0 just got loaded.", myObjWidgetTinyg);
+                            myObjWidgetTinyg.init();
                         }
                     );
                 }
