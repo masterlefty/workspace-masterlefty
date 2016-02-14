@@ -143,7 +143,61 @@ is used by the home page, the workspace picker, and the fork pulldown to show a
 consistent name/image/description tag for the workspace throughout the ChiliPeppr ecosystem.</td></tr><tr valign="top"><td>addBillboardToWorkspaceMenu</td><td>function</td><td>function () <br><br>Inject the billboard into the Workspace upper right corner pulldown which
 follows the standard template for workspace pulldown menus.</td></tr><tr valign="top"><td>setupResize</td><td>function</td><td>function () <br><br>Listen to window resize event.</td></tr><tr valign="top"><td>onResize</td><td>function</td><td>function () <br><br>When browser window resizes, forcibly resize the Console window</td></tr><tr valign="top"><td>loadGcodeListWidget</td><td>function</td><td>function (callback) </td></tr><tr valign="top"><td>loadTemplateWidget</td><td>function</td><td>function (callback) <br><br>Load the Template widget via chilipeppr.load() so folks have a sample
 widget they can fork as a starting point for their own.</td></tr><tr valign="top"><td>loadSpjsWidget</td><td>function</td><td>function (callback) <br><br>Load the Serial Port JSON Server widget via chilipeppr.load()</td></tr><tr valign="top"><td>loadConsoleWidget</td><td>function</td><td>function (callback) <br><br>Load the Console widget via chilipeppr.load()</td></tr><tr valign="top"><td>loadWorkspaceMenu</td><td>function</td><td>function (callback) <br><br>Load the workspace menu and show the pubsubviewer and fork links using
-our pubsubviewer widget that makes those links for us.</td></tr><tr valign="top"><td>loadAxes</td><td>function</td><td>function (callback) </td></tr><tr valign="top"><td>loadTouchplate</td><td>function</td><td>function (callback) </td></tr><tr valign="top"><td>loadWidget1</td><td>function</td><td>function (callback) </td></tr><tr valign="top"><td>load3dviewer</td><td>function</td><td>function (callback) </td></tr>
+our pubsubviewer widget that makes those links for us.</td></tr><tr valign="top"><td>loadAxes</td><td>function</td><td>function (callback) </td></tr><tr valign="top"><td>loadWidget1</td><td>function</td><td>function (callback) <br><br>Load the workspace menu and show the pubsubviewer and fork links using
+our pubsubviewer widget that makes those links for us.
+/
+loadWorkspaceMenu: function(callback) {
+// Workspace Menu with Workspace Billboard
+var that = this;
+chilipeppr.load(
+"http://fiddle.jshell.net/chilipeppr/zMbL9/show/light/",
+function() {
+require(['inline:com-chilipeppr-elem-pubsubviewer'], function(pubsubviewer) {<br><br>var el = $('#' + that.id + ' .com-chilipeppr-ws-menu .dropdown-menu-ws');
+console.log("got callback for attachto menu for workspace. attaching to el:", el);<br><br>pubsubviewer.attachTo(
+el,
+that,
+"Workspace"
+);<br><br>if (callback) callback();
+});
+}
+);
+},<br><br>loadAxes: function(callback) {
+chilipeppr.load(
+"#com-chilipeppr-widget-xyz-instance",
+"http://raw.githubusercontent.com/chilipeppr/widget-axes/master/auto-generated-widget.html",
+function() {
+// Callback after widget loaded into #myDivWidgetXyz
+// Now use require.js to get reference to instantiated widget
+cprequire(
+["inline:com-chilipeppr-widget-xyz"], // the id you gave your widget
+function(myObjWidgetXyz) {
+// Callback that is passed reference to the newly loaded widget
+console.log("Widget / XYZ Axes just got loaded.", myObjWidgetXyz);
+myObjWidgetXyz.init();
+}
+);
+}
+);
+},
+/* loadTouchplate: function(callback) {
+var that = this;
+chilipeppr.load(
+"#com-chilipeppr-dlvp-widget-touchplate-instance",
+"http://raw.githubusercontent.com/masterlefty/widget-touchplate/master/auto-generated-widget.html",
+function() {
+// Callback after widget loaded into #myDivDlvpWidgetTouchplate
+// Now use require.js to get reference to instantiated widget
+cprequire(
+["inline:com-chilipeppr-dlvp-widget-touchplate"], // the id you gave your widget
+function(myObjDlvpWidgetTouchplate) {
+// Callback that is passed reference to the newly loaded widget
+console.log("Dlvp Widget / Touchplate just got loaded.", myObjDlvpWidgetTouchplate);
+myObjDlvpWidgetTouchplate.init();
+}
+);
+}
+);
+},</td></tr><tr valign="top"><td>load3dviewer</td><td>function</td><td>function (callback) </td></tr>
       </tbody>
   </table>
 
