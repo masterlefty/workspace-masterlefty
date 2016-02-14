@@ -63,6 +63,8 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
 
             // Most workspaces will instantiate the Serial Port JSON Server widget
             this.loadSpjsWidget();
+            // Instantiate the G-Code list widget
+            this.loadGcodeListWidget();
             // Most workspaces will instantiate the Serial Port Console widget
             this.loadConsoleWidget(function() {
                 setTimeout(function() { $(window).trigger('resize'); }, 100);
@@ -174,6 +176,27 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                     });
                 }
             );
+        },
+        
+        // Gcode List v3
+            // OLD v2 http://jsfiddle.net/chilipeppr/F2Qn3/
+            // NEW v3 with onQueue/onWrite/onComplete http://jsfiddle.net/chilipeppr/a4g5ds5n/
+        loadGcodeListWidget: function(callback) {
+            chilipeppr.load("#com-chilipeppr-widget-gcode-list-instance",
+                "http://raw.githubusercontent.com/chilipeppr/widget-gcodelist/master/auto-generated-widget.html",
+
+                function() {
+                    cprequire(
+                        ["inline:com-chilipeppr-widget-gcode"],
+
+                        function(gcodelist) {
+                            gcodelist.init({
+                                lineNumbersOnByDefault: true
+                            });
+                        }
+                    );
+                }
+            ); //End Gcode List v3
         },
         /**
          * Load the Console widget via chilipeppr.load()
