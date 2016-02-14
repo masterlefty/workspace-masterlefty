@@ -59,21 +59,17 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
          * The workspace's init method. It loads the all the widgets contained in the workspace
          * and inits them.
          */
+        
         init: function() {
 
             // Most workspaces will instantiate the Serial Port JSON Server widget
             this.loadSpjsWidget();
-            
-            this.loadTouchplateWidget();
-            // Instantiate the G-Code list widget
-            this.loadGcodeListWidget();
-            
             // Most workspaces will instantiate the Serial Port Console widget
             this.loadConsoleWidget(function() {
                 setTimeout(function() { $(window).trigger('resize'); }, 100);
             });
             
-            this.loadAxes();
+            this.loadTemplateWidget();
             
             // Create our workspace upper right corner triangle menu
             this.loadWorkspaceMenu();
@@ -86,10 +82,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             // just set widget min-height in CSS instead
             this.setupResize();
             setTimeout(function() { $(window).trigger('resize'); }, 100);
-            
-            // Load the 3D Viewer
-            this.load3dviewer();
-            
+
         },
         /**
          * Returns the billboard HTML, CSS, and Javascript for this Workspace. The billboard
@@ -123,47 +116,29 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
         onResize: function() {
             if (this.widgetConsole) this.widgetConsole.resize();
         },
-        
-        loadTouchplateWidget: function(callback) {
+        /**
+         * Load the Template widget via chilipeppr.load() so folks have a sample
+         * widget they can fork as a starting point for their own.
+         */
+        loadTemplateWidget: function(callback) {
+
             chilipeppr.load(
-                "#com-chilipeppr-dlvp-widget-touchplate-instance",
-                "http://raw.githubusercontent.com/masterlefty/widget-touchplate/master/auto-generated-widget.html",
+                "#com-chilipeppr-widget-template-instance",
+                "http://raw.githubusercontent.com/chilipeppr/widget-template/master/auto-generated-widget.html",
                 function() {
-                    // Callback after widget loaded into #myDivDlvpWidgetTouchplate
+                    // Callback after widget loaded into #myDivWidgetTemplate
                     // Now use require.js to get reference to instantiated widget
                     cprequire(
-                        ["inline:com-chilipeppr-dlvp-widget-touchplate"], // the id you gave your widget
-                        function(myObjDlvpWidgetTouchplate) {
+                        ["inline:com-chilipeppr-widget-template"], // the id you gave your widget
+                        function(myObjWidgetTemplate) {
                             // Callback that is passed reference to the newly loaded widget
-                            console.log("Dlvp Widget / Touchplate just got loaded.", myObjDlvpWidgetTouchplate);
-                            myObjDlvpWidgetTouchplate.init();
+                            console.log("Widget / Template just got loaded.", myObjWidgetTemplate);
+                            myObjWidgetTemplate.init();
                         }
                     );
                 }
             );
         },
-        
-        
-        loadGcodeListWidget: function(callback) {
-            chilipeppr.load(
-                "#com-chilipeppr-widget-gcode-list-instance",
-                // "http://raw.githubusercontent.com/chilipeppr/widget-gcodelist/master/auto-generated-widget.html",
-                "http://raw.githubusercontent.com/masterlefty/widget-gcodelist/master/auto-generated-widget.html",
-                function() {
-                    // Callback after widget loaded into #myDivWidgetGcode
-                    // Now use require.js to get reference to instantiated widget
-                    cprequire(
-                      ["inline:com-chilipeppr-widget-gcode"], // the id you gave your widget
-                      function(myObjWidgetGcode) {
-                        // Callback that is passed reference to the newly loaded widget
-                        console.log("Widget / Gcode v3 just got loaded.", myObjWidgetGcode);
-                        myObjWidgetGcode.init();
-                      }
-                    );
-                  }
-            );
-        },
-        
         /**
          * Load the Serial Port JSON Server widget via chilipeppr.load()
          */
@@ -196,9 +171,6 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                 }
             );
         },
-        
-        
-        
         /**
          * Load the Console widget via chilipeppr.load()
          */
@@ -255,74 +227,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                     });
                 }
             );
-        },
-        
-        loadAxes: function(callback) {
-            chilipeppr.load(
-                "#com-chilipeppr-widget-xyz-instance",
-                "http://raw.githubusercontent.com/chilipeppr/widget-axes/master/auto-generated-widget.html",
-                function() {
-                    // Callback after widget loaded into #myDivWidgetXyz
-                    // Now use require.js to get reference to instantiated widget
-                    cprequire(
-                        ["inline:com-chilipeppr-widget-xyz"], // the id you gave your widget
-                        function(myObjWidgetXyz) {
-                            // Callback that is passed reference to the newly loaded widget
-                            console.log("Widget / XYZ Axes just got loaded.", myObjWidgetXyz);
-                            myObjWidgetXyz.init();
-                        }
-                    );
-                }
-            );
-        },
-        
-        //load here
-        // insert callbacks here
-        load3dviewer: function(callback) {
-            chilipeppr.load(
-                "#com-chilipeppr-3dviewer",
-                //"http://fiddle.jshell.net/chilipeppr/y3HRF/show/light/",
-                "http://raw.githubusercontent.com/chilipeppr/widget-3dviewer/master/auto-generated-widget.html",
-        
-                function() {
-                    console.log("got callback done loading 3d");
-        
-                    cprequire(
-                        ['inline:com-chilipeppr-widget-3dviewer'],
-        
-                        function(threed) {
-                            console.log("Running 3dviewer");
-                            threed.init();
-                            console.log("3d viewer initted");
-        
-                            // Ok, do someting whacky. Try to move the 3D Viewer 
-                            // Control Panel to the center column
-                            setTimeout(function() {
-                                var element = $('#com-chilipeppr-3dviewer .panel-heading').detach();
-                                $('#com-chilipeppr-3dviewer').addClass("noheight");
-                                $('#com-chilipeppr-widget-3dviewer').addClass("nomargin");
-                                $('#com-chilipeppr-3dviewer-controlpanel').append(element);
-                            }, 10);
-        
-                            // listen to resize events so we can resize our 3d viewer
-                            // this was done to solve the scrollbar residue we were seeing
-                            // resize this console on a browser resize
-                            var mytimeout = null;
-                            $(window).on('resize', function(evt) {
-                                //console.log("3d view force resize");
-                                if (mytimeout !== undefined && mytimeout != null) {
-                                    clearTimeout(mytimeout);
-                                    //console.log("cancelling timeout resize");
-                                }
-                                mytimeout = setTimeout(function() {
-                                    console.log("3d view force resize. 1 sec later");
-                                    threed.resize();
-                                }, 1000);
-        
-                            });
-                        });
-                });
-        }, // end 3D Viewer
+        }, // end loadWorkspaceMenu
         
     }; //return on cpdefine
 });

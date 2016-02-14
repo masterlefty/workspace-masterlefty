@@ -15,7 +15,8 @@
 
     <style type='text/css'>
 /* Workspace CSS */
-.sample { /* creates the border for the sample placeholders */
+
+.sample {
     border:2px silver dashed;
     border-radius:4px;
     padding:10px;
@@ -35,6 +36,10 @@
 
 .col-nopadleft {
     padding-left:0;    
+}
+/* Feel free to remove this css tag to change the margin below the widgets */
+.well, div.panel.panel-default {
+    margin-bottom:10px;
 }
 
 .billboard-content {
@@ -80,134 +85,6 @@
     right: 0px;
     padding: 4px 10px 10px 10px;
     background-color: rgba(255, 255, 255, 0.5);
-}
-/* below this point is the current TinyG coding */
-.zipwhip-button {
-    line-height:0px;
-    padding: 1px 2px;
-}
-.zipwhip {
-    background: url('http://www.zipwhip.com/resources/images/favicon.ico') no-repeat top left;
-    display: inline-block;
-    margin: 1px 0;
-    height: 16px;
-    width: 16px;
-    /* line-height:0px; */
-    background-size: 16px 16px;
-    /* -webkit-background-size: 50% 50%; Safari
-    -khtml-background-size: 50% 50%; Konqueror
-    -moz-background-size: 50% 50%; Firefox */
-}
-#com-chilipeppr-ws-gcode-wrapper .dropdown-menu {
-    /* z-index:6; */
-    /* position:inherit; */
-}
-#com-chilipeppr-ws-gcode-wrapper .panel-heading {
-    /* padding: 10px 12px; */
-}
-
-#com-chilipeppr-ws-gcode-dragdrop {
-    margin-right:6px;
-}
-#com-chilipeppr-ws-gcode-hdr {
-    margin-bottom:10px;
-}
-.panel {
-    margin-bottom:10px;
-}
-#com-chilipeppr-ws-gcode-wrapper #com-chilipeppr-widget-gcode-body {
-    /* max-height:250px; */
-    height:250px;
-}
-#com-chilipeppr-ws-gcode-wrapper .com-chilipeppr-widget-spconsole {
-    margin-bottom:0;
-}
-#com-chilipeppr-ws-gcode-dragdropoverlay {
-    position: absolute;
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
-    z-index:10;
-    background-color: rgba(255, 255, 255, 0.5);
-    font-size: 20px;
-    padding:100px;
-    border: 3px dashed #3276b1;
-    text-align:center;
-    pointer-events: none;
-}
-
-.padrt {
-    padding-right:10px;
-    padding-left:10px;
-}
-.zhigh {
-    /* z-index:5; */
-    position:relative;
-}
-
-.nopadding {
-    padding:0;
-}
-#com-chilipeppr-widget-3dviewer .panel-heading, #com-chilipeppr-3dviewer-controlpanel .panel-heading {
-    background:none;
-    padding:10px 15px;
-    margin-bottom:0;
-}
-#com-chilipeppr-3dviewer-controlpanel {
-    padding:0 10px;
-    float:left;
-}
-#com-chilipeppr-gcode-list {
-    /* padding-right: 10px; */
-    /* z-index:5; */
-    /* position: relative; */
-}
-#com-chilipeppr-serialport-ws-hdr {
-    /* z-index:5; */
-}
-.com-chilipeppr-ws-hdr .well{
-    padding:10px 15px;
-    background-color: #f5f5f5;
-    /* padding:8px; */
-    /* padding-left:15px; */
-    /* margin:0; */
-    /* margin-bottom:10px; */
-}
-#chilipeppr-3dviewer {
-    /* z-index: -1; */
-    padding-right:10px;
-}
-#com-chilipeppr-widget-3dviewer-renderArea {
-    /* z-index:0; */
-}
-.row .widget {
-    margin:0;
-    padding:0;
-}
-.dropArea.hover {
-    background: #dddddd;
-}
-#pnlWorkspace.hover {
-    background: red;
-}
-body.hover {
-    background: #5bc0de;
-}
-#chilipeppr-serialport-wrapper .com-chilipeppr-widget-serialport-spselector {
-    max-height: none;
-}
-#chilipeppr-serialport-log {
-    /*height:200px;*/
-    /* padding-right:10px; */
-    /* z-index:5; */
-    /* position: relative; */
-}
-.nomargin {
-    margin:0;
-}
-.noheight {
-    height:0;
 }
     </style>
 
@@ -274,21 +151,17 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
          * The workspace's init method. It loads the all the widgets contained in the workspace
          * and inits them.
          */
+        
         init: function() {
 
             // Most workspaces will instantiate the Serial Port JSON Server widget
             this.loadSpjsWidget();
-            
-            this.loadTouchplateWidget();
-            // Instantiate the G-Code list widget
-            this.loadGcodeListWidget();
-            
             // Most workspaces will instantiate the Serial Port Console widget
             this.loadConsoleWidget(function() {
                 setTimeout(function() { $(window).trigger('resize'); }, 100);
             });
             
-            this.loadAxes();
+            this.loadTemplateWidget();
             
             // Create our workspace upper right corner triangle menu
             this.loadWorkspaceMenu();
@@ -301,10 +174,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             // just set widget min-height in CSS instead
             this.setupResize();
             setTimeout(function() { $(window).trigger('resize'); }, 100);
-            
-            // Load the 3D Viewer
-            this.load3dviewer();
-            
+
         },
         /**
          * Returns the billboard HTML, CSS, and Javascript for this Workspace. The billboard
@@ -338,47 +208,29 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
         onResize: function() {
             if (this.widgetConsole) this.widgetConsole.resize();
         },
-        
-        loadTouchplateWidget: function(callback) {
+        /**
+         * Load the Template widget via chilipeppr.load() so folks have a sample
+         * widget they can fork as a starting point for their own.
+         */
+        loadTemplateWidget: function(callback) {
+
             chilipeppr.load(
-                "#com-chilipeppr-dlvp-widget-touchplate-instance",
-                "http://raw.githubusercontent.com/masterlefty/widget-touchplate/master/auto-generated-widget.html",
+                "#com-chilipeppr-widget-template-instance",
+                "http://raw.githubusercontent.com/chilipeppr/widget-template/master/auto-generated-widget.html",
                 function() {
-                    // Callback after widget loaded into #myDivDlvpWidgetTouchplate
+                    // Callback after widget loaded into #myDivWidgetTemplate
                     // Now use require.js to get reference to instantiated widget
                     cprequire(
-                        ["inline:com-chilipeppr-dlvp-widget-touchplate"], // the id you gave your widget
-                        function(myObjDlvpWidgetTouchplate) {
+                        ["inline:com-chilipeppr-widget-template"], // the id you gave your widget
+                        function(myObjWidgetTemplate) {
                             // Callback that is passed reference to the newly loaded widget
-                            console.log("Dlvp Widget / Touchplate just got loaded.", myObjDlvpWidgetTouchplate);
-                            myObjDlvpWidgetTouchplate.init();
+                            console.log("Widget / Template just got loaded.", myObjWidgetTemplate);
+                            myObjWidgetTemplate.init();
                         }
                     );
                 }
             );
         },
-        
-        
-        loadGcodeListWidget: function(callback) {
-            chilipeppr.load(
-                "#com-chilipeppr-widget-gcode-list-instance",
-                // "http://raw.githubusercontent.com/chilipeppr/widget-gcodelist/master/auto-generated-widget.html",
-                "http://raw.githubusercontent.com/masterlefty/widget-gcodelist/master/auto-generated-widget.html",
-                function() {
-                    // Callback after widget loaded into #myDivWidgetGcode
-                    // Now use require.js to get reference to instantiated widget
-                    cprequire(
-                      ["inline:com-chilipeppr-widget-gcode"], // the id you gave your widget
-                      function(myObjWidgetGcode) {
-                        // Callback that is passed reference to the newly loaded widget
-                        console.log("Widget / Gcode v3 just got loaded.", myObjWidgetGcode);
-                        myObjWidgetGcode.init();
-                      }
-                    );
-                  }
-            );
-        },
-        
         /**
          * Load the Serial Port JSON Server widget via chilipeppr.load()
          */
@@ -411,9 +263,6 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                 }
             );
         },
-        
-        
-        
         /**
          * Load the Console widget via chilipeppr.load()
          */
@@ -470,74 +319,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                     });
                 }
             );
-        },
-        
-        loadAxes: function(callback) {
-            chilipeppr.load(
-                "#com-chilipeppr-widget-xyz-instance",
-                "http://raw.githubusercontent.com/chilipeppr/widget-axes/master/auto-generated-widget.html",
-                function() {
-                    // Callback after widget loaded into #myDivWidgetXyz
-                    // Now use require.js to get reference to instantiated widget
-                    cprequire(
-                        ["inline:com-chilipeppr-widget-xyz"], // the id you gave your widget
-                        function(myObjWidgetXyz) {
-                            // Callback that is passed reference to the newly loaded widget
-                            console.log("Widget / XYZ Axes just got loaded.", myObjWidgetXyz);
-                            myObjWidgetXyz.init();
-                        }
-                    );
-                }
-            );
-        },
-        
-        //load here
-        // insert callbacks here
-        load3dviewer: function(callback) {
-            chilipeppr.load(
-                "#com-chilipeppr-3dviewer",
-                //"http://fiddle.jshell.net/chilipeppr/y3HRF/show/light/",
-                "http://raw.githubusercontent.com/chilipeppr/widget-3dviewer/master/auto-generated-widget.html",
-        
-                function() {
-                    console.log("got callback done loading 3d");
-        
-                    cprequire(
-                        ['inline:com-chilipeppr-widget-3dviewer'],
-        
-                        function(threed) {
-                            console.log("Running 3dviewer");
-                            threed.init();
-                            console.log("3d viewer initted");
-        
-                            // Ok, do someting whacky. Try to move the 3D Viewer 
-                            // Control Panel to the center column
-                            setTimeout(function() {
-                                var element = $('#com-chilipeppr-3dviewer .panel-heading').detach();
-                                $('#com-chilipeppr-3dviewer').addClass("noheight");
-                                $('#com-chilipeppr-widget-3dviewer').addClass("nomargin");
-                                $('#com-chilipeppr-3dviewer-controlpanel').append(element);
-                            }, 10);
-        
-                            // listen to resize events so we can resize our 3d viewer
-                            // this was done to solve the scrollbar residue we were seeing
-                            // resize this console on a browser resize
-                            var mytimeout = null;
-                            $(window).on('resize', function(evt) {
-                                //console.log("3d view force resize");
-                                if (mytimeout !== undefined && mytimeout != null) {
-                                    clearTimeout(mytimeout);
-                                    //console.log("cancelling timeout resize");
-                                }
-                                mytimeout = setTimeout(function() {
-                                    console.log("3d view force resize. 1 sec later");
-                                    threed.resize();
-                                }, 1000);
-        
-                            });
-                        });
-                });
-        }, // end 3D Viewer
+        }, // end loadWorkspaceMenu
         
     }; //return on cpdefine
 });
@@ -556,20 +338,18 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
     <!-- This is the Id for the Masterlefty workspace -->
     <div id="com-chilipeppr-workspace-masterlefty" class="xhidden">
 
-        <div class="container-fluid" >
+        <div class="container-fluid">
             <div class="row">
 
                 <!-- Left Column -->
                 <!-- Change the width by adjusting col-md-4 to be col-md-3 for skinnier, or col-md-5 for wider -->
                 <!-- You must have all columns add up to 12 since we use bootstrap's col-md technique, i.e. col-md-2, col-md-7, col-md-3 adds to 12 -->
-                <div class="col-md-3 col-pad10">
-                    
-                    <!-- 3D Viewer. Must be loaded at top to get z-orders correct -->
-                    <div id="com-chilipeppr-3dviewer">Load 3D Viewport Here</div>
-                    
-                    <!-- Workspace Hdr -->
+                <div class="col-md-4 col-pad10">
+
                     <div class="com-chilipeppr-ws-hdr well">
-                        <span class="workspace-title">Workspace – Masterlefty</span>
+                        
+                        Workspace - Sample
+
                         <div class="com-chilipeppr-ws-menu pull-right">
                             <div class="btn-group">
                                 <div class="dropdown">
@@ -586,19 +366,15 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                             </div> <!-- End btn-group -->
                         </div> <!-- End ws-menu -->
                     </div> <!-- End Workspace Hdr -->
-                    
-                    <!-- Begin inserting Widgets -->
-                    <!-- Insert Widget 2 / Touch Plate -->
-                    <div id="com-chilipeppr-dlvp-widget-touchplate-instance">
-                        <p class="">Touch Plate goes here</p>
+
+                    <div id="mywidget1-instance">
+                        <p class="sample">Widget 1 goes here</p>
                     </div>
                     
-                    <!-- Insert Widget 3 / Gcode List -->
-                    <div id="com-chilipeppr-widget-gcode-list-instance">
-                        <p class="zhigh"> Load Gcode List Here </p>
+                    <div id="com-chilipeppr-widget-template-instance">
+                        <p class="sample">Template Widget goes here</p>
                     </div>
 
-                    <!-- Insert Widget 4 / Serial Port Console -->
                     <div id="com-chilipeppr-widget-spconsole-instance">
                         Serial Port Console goes here.
                     </div>
@@ -606,30 +382,17 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                 </div> <!-- End Left Column -->
 
                 <!-- Center Column -->
-                <div class="col-md-6 col-pad10">
-                    
-                    <!-- Begin inserting Widgets -->
-                    <!-- 3D Viewer control panel -->
-                    <div id="com-chilipeppr-3dviewer-controlpanel">
-                        3d viewer
-                    </div>
-
-                    <!--
+                <div class="col-md-5 col-pad10">
                     <div id="mywidget2-instance">
                         <p class="sample" style="min-height:200px;">Widget 2 goes here</p>
-                    </div> 
-                    -->
+                    </div>
                 </div> <!-- end of center column -->
 
                 <!-- Right Column -->
                 <div class="col-md-3 col-pad10">
                     
-                    <div id = "com-chilipeppr-widget-xyz-instance">
-                        Axes Widget goes here
-                    </div>
-                    
                     <div id="com-chilipeppr-widget-serialport-instance">
-                        Serialport Widget goes here
+                        Widget 3 goes here
                     </div>
                     
                     <div id="mywidget3-instance">
@@ -637,6 +400,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                     </div>
 
                 </div> <!-- end of right column -->
+                
             </div> <!-- end of row -->
         </div> <!-- end of container-fluid -->
     </div> <!-- end of Masterlefty workspace -->
