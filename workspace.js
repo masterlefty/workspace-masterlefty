@@ -67,6 +67,9 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             // Instantiate the Touch Plate Widget
             this.loadTouchplateWidget();
             
+            // Instantiate the Playground Widget
+            this.loadPlaygroundWidget();
+            
             // Instantiate the Gcode Widget
             this.loadGcodeWidget();
             
@@ -188,6 +191,28 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                 }
             );
         },
+        
+        /**
+         * Load the Playground widget via chilipeppr.load()
+         */
+        loadPlaygroundWidget: function (callback) {
+            chilipeppr.load(
+                "#com-chilipeppr-widget-playground-instance",
+                "http://raw.githubusercontent.com/masterlefty/widget-playground/master/auto-generated-widget.html",
+                function(myObjWidgetPlayground) {
+                    // Callback after widget loaded into #myDivWidgetInsertedInto
+                    cprequire(
+                        ["inline:com-chilipeppr-widget-playground"], // the id you gave your widget
+                        function(myObjWidgetPlayground) {
+                            // Callback that is passed reference to your newly loaded widget
+                            console.log("My widget just got loaded.", myObjWidgetPlayground);
+                            myObjWidgetPlayground.init();
+                        }
+                    );
+                }
+            );
+        },
+        
         
         /**
          * Load the Gcode widget via chilipeppr.load()
