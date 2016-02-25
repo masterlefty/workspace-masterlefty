@@ -173,7 +173,6 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
         /**
          * Load the Touch Plate widget via chilipeppr.load()
          */
-        /*
         loadTouchplateWidget: function(callback) {
             chilipeppr.load(
                 "#com-chilipeppr-dlvp-widget-touchplate-instance",
@@ -192,7 +191,6 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                 }
             );
         },
-        */
         /**
          * Load the Playground widget via chilipeppr.load()
          */
