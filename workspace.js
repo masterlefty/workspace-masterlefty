@@ -68,7 +68,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             this.loadTouchplateWidget();
             
             // Instantiate the Playground Widget
-            this.loadPlaygroundWidget();
+            // this.loadPlaygroundWidget();
             
             // Instantiate the Gcode Widget
             this.loadGcodeWidget();
@@ -191,6 +191,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
                 }
             );
         },
+        
         /**
          * Load the Playground widget via chilipeppr.load()
          */
