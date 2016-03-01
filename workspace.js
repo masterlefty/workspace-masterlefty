@@ -80,7 +80,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
             // end Left Column
             
             // Center Column
-            this.load3dViewer();
+            
             // end Center Column
             
             // Right Column
@@ -273,24 +273,7 @@ cpdefine("inline:com-chilipeppr-workspace-masterlefty", ["chilipeppr_ready"], fu
          * Loading zone for the Center Column widgets
          * Load the widgets via chilipeppr.load()
          ******************/
-        load3dViewer:function(callback) {
-            chilipeppr.load(
-                "#com-chilipeppr-widget-3dViewer-instance",
-                "http://raw.githubusercontent.com/chilipeppr/widget-3dviewer/master/auto-generated-widget.html",
-                function() {
-                    // Callback after widget loaded into #myDivWidget3dviewer
-                    // Now use require.js to get reference to instantiated widget
-                    cprequire(
-                        ["inline:com-chilipeppr-widget-3dviewer"], // the id you gave your widget
-                        function(myObjWidget3dviewer) {
-                            // Callback that is passed reference to the newly loaded widget
-                            console.log("Widget / 3D GCode Viewer just got loaded.", myObjWidget3dviewer);
-                            myObjWidget3dviewer.init();
-                        }
-                    );
-                }
-            );
-        },
+        
         
         /*******************
          * Loading zone for the Right Column widgets
